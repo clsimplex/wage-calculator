@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            Wage Calculator
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="Description" content="Find out exactly how much you are making with the Wage Calculator" />
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <link href='http://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <style>
+		html{background:url(making-money.jpg)#019875;background-size:cover;padding-top:15px}
+		body{font-family:Oswald,sans-serif}
+		.money_box{font-size:120px;font-weight:700;background-color:#1E824C;color:#fff}
+		.btn-lg{font-size:80px;margin-top:15px}
+		.wageBox{position:relative;text-align:center}
+		marquee{color:red;font-weight:700;font-size:40px}
+		#amount{font-weight:700}
+		#slider{margin:10px 0}
+		.ui-widget-header{background:#1E824C;}
+        </style>
+    </head>
+    <body class="container" style="-moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.3);-webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.3);box-shadow: 5px 5px 5px rgba(0,0,0,0.3);border-radius:10px;border:1px solid #049372;">
+        <div class="panel">
+            <main>
+                <h1 style="text-align:center;">Wage Calculator</h1>
+                <p class="lead">
+                    Welcome to the Wage Calculator. If you find yourselves wondering the classic question, "<em>how much am I making while I'm just sitting here?</em>" then step right up, friends.
+		    The wage calculator is here.
+                </p>
+		<p>
+                    The counter resets whenever you change the wage. Use the slider to pick the wage.
+		    It ranges between 5 and 50 (but you can take raises to get even higher!)
+		</p>
+                <noscript>
+                    This page requires Javascript. Please enable it and come back soon!
+                </noscript>
+                <div class="wageBox" style='display:none;'>
+                    <h2>"Get That Money"</h2>
+                    Current Wage: <span id="amount"></span>
+                    <marquee>$ GETTING PAID $</marquee>
+                    <div class="money_box">
+                        $ <span id="wage">0.000</span>
+                    </div>
+                    <marquee>$ GETTING PAID $</marquee>
+                </div>
+                <div class="raiseBox" style='display:none;'>
+                    <h3>Wage Scale 5 - 50</h3>
+                    <div id="slider"></div>
+                    <p style='text-align:center;'>
+                        <a href='#' class='raise btn btn-success btn-lg'>Take a Raise!</a>
+                    </p>
+                </div>
+		<p>
+			Seriously, though...don't get in trouble with this thing. #woops #funemployed
+		</p>
+            </main>
+            <footer>
+                &copy; 2015 Levon's Dope Projects.
+            </footer>
+        </div>
+        <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <script src="jquery.wageCalculator.js"></script>       
+        <script type="text/javascript">
+            /*<![CDATA[*/
+            $('.wageBox').show();
+            $('.raiseBox').show();
+            var $wage = 9;
+            $("#amount").text("$"+$wage);
+            $("#slider").slider({
+                range: "min",
+                value: $wage,
+                min: 5,
+                max: 50,
+                slide: function(event, ui)
+                {
+                    $wage = ui.value;
+                    $("#amount").text("$"+$wage);
+                    setWage($wage);
+                    resetTotal();
+                }
+            });
+            $('.raise').on('click', function() {
+                $wage = $wage + 1;
+                setWage($wage);
+                $("#amount").text("$"+$wage);
+                $("#slider").slider('value', $wage); // This works.
+                resetTotal();
+            });
+            main();
+            /*]]>*/
+        </script>		
+    </body>
+</html>
